@@ -1,0 +1,22 @@
+# Global License Manager - Dependencies
+# Developed by Vicky Dhale
+
+# Core requirements
+pywin32>=305          # Windows API access
+wmi>=1.5.1            # Windows Management Instrumentation
+psutil>=5.9.0         # System monitoring
+
+# GUI requirements
+PyQt5>=5.15.9         # Professional GUI framework
+
+# Networking
+requests>=2.31.0      # HTTP requests
+dnspython>=2.4.0      # DNS queries
+
+# Utilities
+colorama>=0.4.6       # Colored console output
+cryptography>=41.0.0  # Encryption
+
+# Development (optional)
+pytest>=7.4.0         # Testing
+black>=23.0.0         # Code formatting
