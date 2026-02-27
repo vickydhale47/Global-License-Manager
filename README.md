@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" width="220" alt="Global License Manager Logo">
+  <img src="https://cdn-icons-png.flaticon.com/512/18717/18717265.png" width="300" alt="Global License Manager Logo">
 </p>
 
 <h1 align="center">Global License Manager</h1>
