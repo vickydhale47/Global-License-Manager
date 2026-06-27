@@ -69,7 +69,6 @@ class LicenseEngine:
     def _get_system_info(self) -> Dict:
         """Get system information"""
         import platform
-        import winreg
         
         info = {
             'os': platform.system(),
@@ -78,17 +77,19 @@ class LicenseEngine:
             'machine': platform.machine()
         }
         
-        # Get Windows build number
-        try:
-            key = winreg.OpenKey(
-                winreg.HKEY_LOCAL_MACHINE,
-                r"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
-            )
-            info['build'] = int(winreg.QueryValueEx(key, "CurrentBuildNumber")[0])
-            winreg.CloseKey(key)
-        except:
-            pass
-            
+        # Get Windows build number safely
+        if platform.system() == "Windows":
+            try:
+                import winreg
+                key = winreg.OpenKey(
+                    winreg.HKEY_LOCAL_MACHINE,
+                    r"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+                )
+                info['build'] = int(winreg.QueryValueEx(key, "CurrentBuildNumber")[0])
+                winreg.CloseKey(key)
+            except Exception as e:
+                logger.debug(f"Failed to read Windows build number: {e}")
+                
         return info
     
     def activate(self, activation_type: ActivationType) -> Tuple[bool, str]:

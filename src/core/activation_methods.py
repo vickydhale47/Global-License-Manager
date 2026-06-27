@@ -11,10 +11,9 @@ Description:    All activation method implementations
 
 import os
 import subprocess
-import ctypes
-import winreg
+import platform
 from pathlib import Path
-from typing import Tuple  # ← IMPORT ADD KARO
+from typing import Tuple
 
 import logging
 
@@ -34,6 +33,10 @@ class ActivationMethods:
             logger.info("Vicky Dhale: Starting HWID activation")
             
             # Check admin rights
+            if platform.system() != "Windows":
+                return False, "Windows-only activation method"
+                
+            import ctypes
             if not ctypes.windll.shell32.IsUserAnAdmin():
                 return False, "Administrator privileges required"
             
@@ -94,6 +97,11 @@ class ActivationMethods:
             logger.info("Vicky Dhale: Starting KMS38 activation")
             
             # Check admin rights
+            if platform.system() != "Windows":
+                return False, "Windows-only activation method"
+                
+            import ctypes
+            import winreg
             if not ctypes.windll.shell32.IsUserAnAdmin():
                 return False, "Administrator privileges required"
             
@@ -151,6 +159,10 @@ class ActivationMethods:
             logger.info("Vicky Dhale: Starting Online KMS activation")
             
             # Check admin rights
+            if platform.system() != "Windows":
+                return False, "Windows-only activation method"
+                
+            import ctypes
             if not ctypes.windll.shell32.IsUserAnAdmin():
                 return False, "Administrator privileges required"
             
@@ -192,7 +204,7 @@ class ActivationMethods:
                             return True, f"Activated with KMS server: {server}"
                         else:
                             logger.warning(f"Activation failed with {server}, trying next...")
-                except:
+                except Exception:
                     continue
             
             return False, "No working KMS servers found"
